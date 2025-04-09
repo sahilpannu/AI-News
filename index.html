@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Auto Blog</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🧠 AI Auto Blog - Daily Trending News</h1>
+  <ul id="blog-list"></ul>
+
+  <script>
+    fetch('/posts')
+      .then(res => res.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const files = [...doc.querySelectorAll('a')].filter(a => a.href.endsWith('.html'));
+
+        const ul = document.getElementById('blog-list');
+        files.forEach(file => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href="/posts/${file.textContent}">${file.textContent.replace('.html', '').replace(/-/g, ' ')}</a>`;
+          ul.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
