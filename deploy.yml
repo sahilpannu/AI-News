@@ -2,24 +2,32 @@ name: Auto Blog Deploy
 
 on:
   schedule:
-    - cron: '0 6 * * *' # every day at 6AM UTC
-  workflow_dispatch:
+    - cron: '0 6 * * *'  # ⏰ runs every day at 6AM UTC
+  workflow_dispatch:       # 💡 allows manual run too
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Node
+
+      - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 18
+
       - run: npm install
-      - run: node scripts/run.js
+
+      - name: Run BlogMind AI Script
+        run: node scripts/run.js
+        env:                    # ⬅️ this is the key injection
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
       - name: Commit changes
         run: |
-          git config --global user.name 'bot'
-          git config --global user.email 'bot@example.com'
+          git config --global user.name 'blogmind-bot'
+          git config --global user.email 'bot@blogmind.ai'
           git add .
-          git commit -m "🤖 Auto-update blog posts"
+          git commit -m "🤖 Auto blog post update"
           git push
