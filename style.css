@@ -1,0 +1,9 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  padding: 2rem;
+  background: #f9f9f9;
+  color: #333;
+}
+h1 { color: #007acc; }
+ul li { margin: 0.5rem 0; }
+a { text-decoration: none; color: #007acc; }
