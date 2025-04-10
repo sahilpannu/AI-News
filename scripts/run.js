@@ -1,5 +1,5 @@
 // scripts/run.js
-const getTrends = require('./scrapeTrends');
+import getTrends from '../scrapeTrends.js';
 const generateBlog = require('./generateContent');
 
 (async () => {
