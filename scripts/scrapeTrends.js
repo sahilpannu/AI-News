@@ -14,4 +14,5 @@ async function getTrends() {
   return topics.slice(0, 5); // top 5 trends
 }
 
-module.exports = getTrends;
+export default getTrends; // ✅ ES Module
+
